@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mood Analyzer using Gemini API</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <main>
+    <h1>Mood Analyzer using Gemini API</h1>
+    <form>
+      <div class="image-picker">        
+        <img id="output" width="200" />
+      </div>
+      <div class="prompt-box">
+        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+        <input type="hidden" id="chosen-image" name="chosen-image"/>    
+        <label for="file" class="upload-button">Upload Image</label>
+      </div>
+      <div class="prompt-box">
+        <label>
+          <input name="prompt" placeholder="Enter instructions here" type="text"
+            value="Can you tell me the mood of the picture?">
+        </label>
+        <button type="submit">Go</button>
+      </div>
+
+ 
+    
+    </form>
+    <p class="output">(Results will appear here)</p>
+  </main>
+
+  <script src="https://unpkg.com/markdown-it@8.4.2/dist/markdown-it.min.js"></script>
+  <script src="https://unpkg.com/base64-js@1.3.0/base64js.min.js"></script>
+  <script type="module" src="/main.js"></script>
+  <script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        var chosenImage = document.getElementById('chosen-image');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        console.log(image.src);
+        chosenImage.value = image.src;
+    };
+</script>
+</body>
+
+</html>
