@@ -11,7 +11,7 @@ form.onsubmit = async (ev) => {
   try {
     // Load the image as a base64 string
     let imageUrl = form.elements.namedItem('chosen-image').value;
-    console.log ( imageUrl );
+
     let imageBase64 = await fetch(imageUrl)
       .then(r => r.arrayBuffer())
       .then(a => base64js.fromByteArray(new Uint8Array(a)));
@@ -22,7 +22,7 @@ form.onsubmit = async (ev) => {
         role: 'user',
         parts: [
           { inline_data: { mime_type: 'image/jpeg', data: imageBase64, } },
-          { text: promptInput.value }
+          { text: 'Can you tell me the mood of the picture? Please also add a rate that is a number with a range from 0 to 10 where 0 equal the lower bad mood and 10 the best happiest mood.' }
         ]
       }
     ];
@@ -35,11 +35,14 @@ form.onsubmit = async (ev) => {
 
     // Read from the stream and interpret the output as markdown
     let buffer = [];
+    let string_result = "";
     let md = new markdownit();
     for await (let chunk of stream) {
       buffer.push(chunk);
-      output.innerHTML = md.render(buffer.join(''));
+            output.innerHTML = md.render(buffer.join(''));
     }
+    
+// Expected output: 42
   } catch (e) {
     output.innerHTML += '<hr>' + e;
   }

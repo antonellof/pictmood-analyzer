@@ -3,17 +3,21 @@ import os
 
 import google.generativeai as genai
 from flask import Flask, jsonify, request, send_file, send_from_directory
+from dotenv import load_dotenv
+
 
 # 🔥🔥 FILL THIS OUT FIRST! 🔥🔥
 # Get your Gemini API key by:
 # - Selecting "Add Gemini API" in the "Project IDX" panel in the sidebar
 # - Or by visiting https://g.co/ai/idxGetGeminiKey
-API_KEY = ''
+# API_KEY = 'insert here your Gemini AI APO Key'
+# Or create a .env file using GEMINI_API_KEY=your-key
 
+load_dotenv()
+API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=API_KEY)
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def index():
