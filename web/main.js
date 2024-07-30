@@ -1,8 +1,21 @@
 import { streamGemini } from './gemini-api.js';
 
 let form = document.querySelector('form');
-let promptInput = document.querySelector('input[name="prompt"]');
+// let promptInput = document.querySelector('input[name="prompt"]');
 let output = document.querySelector('.output');
+const fileButton = document.getElementById('file');
+const image = document.getElementById('output');
+const chosenImage = document.getElementById('chosen-image');
+
+fileButton.addEventListener('change', loadFile);
+
+function loadFile(event) {
+  image.src = URL.createObjectURL(event.target.files[0]);
+  chosenImage.value = image.src;
+  image.style.display = 'block';
+};
+
+
 
 form.onsubmit = async (ev) => {
   ev.preventDefault();
